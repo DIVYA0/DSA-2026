@@ -10,7 +10,7 @@ Time Complexity:O(n^2)because the total number of stars printed is1+2+3+.......+
 Space Complexity:O(n)for the temporary string variable storing each row.
 
   
-class starSquare {
+class right_angle_star {
     public static void main(String[] args) {
         int n=4;
         for(int i=0;i<n;i++){
