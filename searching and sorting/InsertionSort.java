@@ -11,9 +11,9 @@ Store the current element (curr) and compare it with all previous elements.
 Shift the previous elements one position forward if they are greater than the current element.
 Insert the current element (curr) at its correct sorted position.
 Repeat until the whole array is sorted.
+    
 Time & Space Complexity:
 Time Complexity: O(n) Best Case Already Sorted.
-
 Average Case: O(n2)
 Worst Case: O(n2)Every element has to be compared and shifted back to the start.
 Space Complexity: O(1) No extra array is used; sorting is done in-place
