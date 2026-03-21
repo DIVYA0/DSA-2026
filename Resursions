@@ -1,0 +1,12 @@
+Infinite recursion happens when a recursive function keeps calling itself and never reaches a stopping condition (base case).
+class infiniteRecursion {
+    public static void main(String[] args) {
+       int a=10;
+       fun (a);
+    }
+    public static void fun(int a){
+        System.out.print(a+" ");
+        a--;
+        fun(a);
+    }
+}
