@@ -30,5 +30,22 @@ class Solution {
 Time complexity:O(N)
 Space Complexity:O(N)
 
-  
+Approach 2
+class Solution {
+    public int lengthOfLastWord(String s) {
+        int count=0;
+        int n=s.length()-1;
+        while(n>=0){
+            if(s.charAt(n)!=' '){
+                count++;
+            }else if(count!=0) {
+                    break;
+            }
+            n--;
+        }
+        return count;
+    }
+}
+Time complexity :O(N);
+Space complexity:O(1);
   
