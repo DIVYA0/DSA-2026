@@ -1,0 +1,68 @@
+Word Search
+Given an m x n grid of characters board and a string word, return true if word exists in the grid.
+The word can be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. 
+The same letter cell may not be used more than once.
+
+Ex1:
+Input: board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCCED"
+Output: true
+
+Ex2:
+Input: board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "SEE"
+Output: true
+
+Ex3
+Input: board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCB"
+Output: false
+
+class Solution {
+    boolean res=false;
+    public boolean exist(char[][] board, String word) {
+   
+        for(int i=0;i<board.length;i++){
+            for(int j=0;j<board[0].length;j++){
+                if(board[i][j]==word.charAt(0)){
+                 backtracking(board,word,1,i,j);
+                 if(res){
+                    return true;
+                 }
+                }
+            }
+        }
+    return res;
+
+    }
+    public void backtracking(char[][] board,String word,int nextIndex,int i,int j){
+       
+      if(nextIndex==word.length()){
+        res= true;
+        return;
+      }  
+      char temp=board[i][j];
+      board[i][j]='#';
+      //right
+      if(j<board[0].length-1&&board[i][j+1]==word.charAt(nextIndex)){
+        backtracking(board,word,nextIndex+1,i,j+1);
+      }
+      //left
+      if(j>0&&board[i][j-1]==word.charAt(nextIndex)){
+         backtracking(board,word,nextIndex+1,i,j-1);
+      }
+      //top
+      if(i>0&&board[i-1][j]==word.charAt(nextIndex)){
+        backtracking(board,word,nextIndex+1,i-1,j);
+      }
+       if(i<board.length-1&&board[i+1][j]==word.charAt(nextIndex)){
+        backtracking(board,word,nextIndex+1,i+1,j);
+      }
+        board[i][j]=temp;   
+    }
+}
+
+👉 Time Complexity:
+
+O(N × M × 3^L)
+
+👉 Space Complexity:
+
+O(L)
