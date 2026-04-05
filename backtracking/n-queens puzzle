@@ -1,0 +1,58 @@
+n-queens puzzle
+The n-queens puzzle is the problem of placing n queens on an n x n chessboard such that no two queens attack each other.
+Given an integer n, return all distinct solutions to the n-queens puzzle. You may return the answer in any order.
+Each solution contains a distinct board configuration of the n-queens' placement, where 'Q' and '.' both indicate a queen and an empty space, respectively.
+
+Input: n = 4
+Output: [[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]
+Explanation: There exist two distinct solutions to the 4-queens puzzle as shown above
+Example 2:
+
+Input: n = 1
+Output: [["Q"]]
+
+class Solution {
+    public List<List<String>> solveNQueens(int n) {
+        List<List<String>> result=new ArrayList<>();
+        char[][] board=new char[n][n];  
+        for(char[] arr:board){
+        Arrays.fill(arr,'.');
+       }
+       backtracking(0, new HashSet<>() ,new HashSet<>(),new HashSet<>(),board,result);
+       return result;
+    }
+    public void backtracking(int row, HashSet<Integer> colSet,HashSet<Integer> diaSet,HashSet<Integer> AntiDiaSet,
+    char [][] board,List<List<String>> result )   {
+        if(row==board.length){
+            List<String> newBoard=new ArrayList<>();
+            for(char[] ch:board){
+                newBoard.add(new String(ch));
+            }
+        result.add(new ArrayList<>(newBoard));
+        return;
+        }
+        
+        for(int col=0;col<board.length;col++){
+            if(colSet.contains(col)||
+            diaSet.contains(row-col)||
+            AntiDiaSet.contains(row+col)){
+                continue;
+            }
+            board[row][col]='Q';
+            colSet.add(col);
+            diaSet.add(row-col);
+            AntiDiaSet.add(row+col);
+            backtracking(row+1,colSet,diaSet,AntiDiaSet,board,result);
+            colSet.remove(col);
+            diaSet.remove(row-col);
+            AntiDiaSet.remove(row+col);
+            board[row][col]='.';
+            
+        }
+    }
+}
+Time Complexity = O(n!)
+
+Space Complexity:
+Space Complexity = O(n^2)
+ 
