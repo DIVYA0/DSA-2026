@@ -1,0 +1,46 @@
+131. Palindrome Partitioning
+Given a string s, partition s such that every substring of the partition is a palindrome. 
+Return all possible palindrome partitioning of s.
+
+Example 1:
+Input: s = "aab"
+Output: [["a","a","b"],["aa","b"]]
+
+Example 2:
+Input: s = "a"
+Output: [["a"]]
+
+class Solution {
+    public List<List<String>> partition(String s) {
+        List<List<String>> result =new ArrayList<>();
+        backtracking(s,result,new ArrayList<>());  
+        return result;     
+    }
+    public void backtracking(String remaingString,List<List<String>> result,List<String> path){
+       if(remaingString.isEmpty()){
+        result.add(new ArrayList<>(path));
+        return;
+       }
+       for(int i=1;i<=remaingString.length();i++){
+        String choice= remaingString.substring(0,i);
+        if(!isPalindrome(choice)) continue;
+            path.add(choice);
+            backtracking(remaingString.substring(i),result,path);
+            path.remove(path.size()-1);
+       }
+    }
+    public boolean isPalindrome(String s){
+    int left=0,right=s.length()-1;
+    while(left<right){
+       if( s.charAt(left++)!=s.charAt(right--)){
+                return false;
+        }
+     }
+    return true;
+    }
+}
+Time Complexity
+Time Complexity = O(n * 2n)
+
+Space Complexity
+Space Complexity = O(n)
