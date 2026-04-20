@@ -1,0 +1,75 @@
+322. Coin Change
+You are given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money.
+Return the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1.
+You may assume that you have an infinite number of each kind of coin.
+
+Example 1:
+Input: coins = [1,2,5], amount = 11
+Output: 3
+Explanation: 11 = 5 + 5 + 1
+
+Example 2:
+Input: coins = [2], amount = 3
+Output: -1
+
+Example 3:
+Input: coins = [1], amount = 0
+Output: 0
+
+Approach 1-top down approach
+class Solution {
+    public int coinChange(int[] coins, int amount) {
+        int[] dp=new int[amount+1];
+        Arrays.fill(dp,Integer.MAX_VALUE);
+        return coinChangeHelper(coins,amount,dp);
+    }
+    public int coinChangeHelper(int[] coins,int remAmount,int[] dp){
+         int n=coins.length;
+        if(remAmount==0){
+            return 0;
+        }
+        if(remAmount<0){
+            return -1;
+        }
+        if(dp[remAmount] != Integer.MAX_VALUE){
+            return dp[remAmount];
+        }
+        int minCoin=Integer.MAX_VALUE; 
+        for(int i=0;i<n;i++){
+           int res=coinChangeHelper (coins,remAmount -coins[i],dp);
+           if(res!=-1){
+                minCoin=Math.min(minCoin,1+res);
+           }
+        }
+        dp[remAmount]=(minCoin==Integer.MAX_VALUE)?-1:minCoin;
+        return dp[remAmount];
+
+    }
+}
+
+Final Answer
+Time Complexity: O(amount × n)
+Space Complexity: O(amount)
+
+Approach-2 (Bottom up Approach)
+class Solution {
+    public int coinChange(int[] coins, int amount) {
+        int n=amount;
+        int[] dp=new int[n+1];
+        Arrays.fill(dp,Integer.MAX_VALUE/2);
+        dp[0]=0;
+        for(int rem=1;rem<=n;rem++){
+           for(int j=0;j<coins.length;j++){
+            int remAmount=rem-coins[j];
+            if(remAmount>=0){
+                dp[rem]=Math.min(dp[rem],1+dp[remAmount]);
+            }
+           }
+        }
+        return dp[n]==Integer.MAX_VALUE/2? -1 :dp[n];
+    }
+}
+time: O(amount × coins)
+space: O(amount)
+
+
