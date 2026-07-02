@@ -1,0 +1,19 @@
+import java.util.*;
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        // put all nodes of headB inside a set
+        Set set=new HashSet<>();
+        while(headB!=null){
+            set.add(headB);
+            headB=headB.next;
+        }
+        //check each element of headA if they present in a set
+        while(headA!=null){
+            while(set.contains(headA)){
+                return headA;
+            }
+            headA=headA.next;
+        }
+        return null;
+    }
+}
